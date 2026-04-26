@@ -1,0 +1,28 @@
+{
+  "name": "01_intro-to-express",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --no-deprecation --watch --env-file=.env app.js",
+    "setup": "node --env-file=.env ./config/setup.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "google-auth-library": "^10.6.1",
+    "mime-types": "^2.1.35",
+    "mongoose": "^8.12.1",
+    "mongoose-long": "^0.8.0",
+    "nodemailer": "^8.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  }
+}
