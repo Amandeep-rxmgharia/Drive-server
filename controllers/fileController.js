@@ -116,11 +116,11 @@ export const getFile = async (req, res) => {
   if (!fileData) return res.status(404).json({ error: "file not found" });
   // If "download" is requested, set the appropriate headers
   const privateKey = await readFile(
-    "C:/Users/Dell/Documents 1/Node.js/PROCODER DRIVE/cloudfront keys/private_key.pem",
+    process.env.CLOUDFRONT_PRIVATE_KEY_PATH,
     "utf-8",
   );
   // const url = `https://d3du29olkjloyw.cloudfront.net/${id}`;
-  const url = new URL(id, `https://d3du29olkjloyw.cloudfront.net`);
+  const url = new URL(id, process.env.CLOUDFRONT_ORIGIN_URL);
   console.log(url);
   const downloadDisposition = `attachment; filename="${fileData.name}"`;
   const getDisposition = `inline; filename="${fileData.name}"`;
@@ -129,7 +129,7 @@ export const getFile = async (req, res) => {
   }else {
     url.searchParams.append("response-content-disposition", getDisposition);
   }
-  const keyPairId = "K2F25X20M6EEFD";
+  const keyPairId = process.env.CLOUDFRONT_KEY_PAIR_ID;
   const time = 300 * 1000;
   const dateLessThan = new Date(Date.now() + time);
   let getUrl = getCloudFrontSignedUrl({
@@ -199,7 +199,7 @@ export const deleteFile = async (req, res, next) => {
 
   try {
     const command = new DeleteObjectCommand({
-      Bucket: "mahi-storage-app",
+      Bucket: process.env.S3_BUCKET,
       Key: id,
     });
     await client.send(command);
