@@ -94,8 +94,9 @@ export const login = async (req, res, next) => {
     res.cookie("sid", sessionId, {
       httpOnly: true,
       signed: true,
+      secure: true,
       maxAge: 60 * 1000 * 60 * 24 * 7,
-      sameSite: "lax",
+      sameSite: "none",
     });
     res.json({ message: "logged in" });
   } else {
@@ -198,8 +199,9 @@ export const googleLogin = async (req, res, next) => {
       res.cookie("sid", sessionId, {
         httpOnly: true,
         signed: true,
+        secure: true,
         maxAge: 60 * 1000 * 60 * 24 * 7,
-        sameSite: "lax",
+        sameSite: "none",
       });
       return res.json({ message: "logged in" });
     }
@@ -277,8 +279,9 @@ export const sessionCookieProvider = async (req, res, next) => {
     res.cookie("sid", sid, {
       httpOnly: true,
       signed: true,
+      secure: true,
       maxAge: oneWeek,
-      sameSite: "lax",
+      sameSite: "none",
     });
     return res.json({ message: "success" });
   }
