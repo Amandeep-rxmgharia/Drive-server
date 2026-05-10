@@ -1,5 +1,4 @@
 import { model, Schema } from "mongoose";
-import { required } from "zod/mini";
 
 const directorySchema = new Schema(
   {
