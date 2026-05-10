@@ -17,7 +17,10 @@ import {
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { getSignedUrl as getCloudFrontSignedUrl } from "@aws-sdk/cloudfront-signer";
 
-export const client = new S3Client();
+export const client = new S3Client({credentials: {
+  accessKeyId: process.env.S3_PUBLIC_KEY,
+  secretAccessKey: process.env.S3_SECRET_KEY
+}});
 
 async function updateParentDirectories(parentDirId, incField) {
   let parentFolderId = parentDirId;

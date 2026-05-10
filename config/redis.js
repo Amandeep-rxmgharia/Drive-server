@@ -1,8 +1,16 @@
-import { createClient } from "redis";
+import { createClient } from 'redis';
 
-const redisClient = createClient({password: process.env.REDIS_CLIENT_SECRET});
-redisClient.on("error", (err) => {
-  console.log(err);
+const redisClient = createClient({
+    username: 'default',
+    password: process.env.REDIS_PASSWORD,
+    socket: {
+        host: process.env.REDIS_HOST,
+        port: process.env.REDIS_PORT
+    }
 });
+
+redisClient.on('error', err => console.log('Redis Client Error', err));
+
 await redisClient.connect();
-export default redisClient;
+export default redisClient
+
