@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import directoryRoutes from "./routes/directoryRoutes.js";
+import subscriptionRoutes from "./routes/subscription.js";
 import fileRoutes from "./routes/fileRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import checkAuth from "./middlewares/authMiddleware.js";
@@ -9,6 +10,7 @@ import authRoutes from './routes/authRoutes.js'
 import sharedFileRoutes from './routes/sharedFileRoutes.js'
 import { connectDB } from "./config/db.js";
 import { uploadComplete, uploadInitiate } from "./controllers/fileController.js";
+import { razorpayWebhook } from "./controllers/subscriptionController.js";
 const mySecretKey = process.env.SECRET_KEY;
 
 await connectDB();
@@ -31,6 +33,9 @@ app.use("/uploads/initiate",checkAuth,uploadInitiate)
 app.use("/uploads/complete",checkAuth,uploadComplete)
 app.use("/shared-file",sharedFileRoutes)
 app.use("/", userRoutes);
+app.use('/razorpay/webhook',razorpayWebhook)
+
+app.use('/subscription',checkAuth,subscriptionRoutes)
 
 app.use((err, req, res, next) => {
   console.log(err.errorResponse ? err.errorResponse.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied[0].details : err);
@@ -40,4 +45,5 @@ app.use((err, req, res, next) => {
 
 app.listen(process.env.PORT, () => {
   console.log(`Server Started`);
+  console.log(`http://localhost:${process.env.PORT}`);
 });

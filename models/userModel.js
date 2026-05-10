@@ -54,6 +54,10 @@ const userSchema = new Schema(
       type: Schema.Types.BigInt,
       required: true,
       default: 1 * 1024 ** 3
+    },
+    subscription_id: {
+      type: String,
+      default: null,
     }
   },
   {
