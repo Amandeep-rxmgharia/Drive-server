@@ -36,7 +36,7 @@ app.use("/", userRoutes);
 app.use('/razorpay/webhook',razorpayWebhook)
 
 app.use('/subscription',checkAuth,subscriptionRoutes)
-
+console.log('learning')
 app.use((err, req, res, next) => {
   console.log(err.errorResponse ? err.errorResponse.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied[0].details : err);
   console.log('runnig error');
